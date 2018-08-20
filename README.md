@@ -43,7 +43,7 @@ jsx 的末尾中括号不另起一行，和 react 官方的配置相同。
 .env.test.local
 .env.production.local
 
-#editor
+# editor
 /.vscode/settings.json
 /.idea
 
