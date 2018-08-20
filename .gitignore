@@ -14,8 +14,9 @@
 .env.test.local
 .env.production.local
 
-#config
-.vscode/settings.json
+#editor
+/.vscode/settings.json
+/.idea
 
 npm-debug.log*
 yarn-debug.log*
