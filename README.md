@@ -51,3 +51,29 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 ```
+
+## tslint
+
+## ts config
+
+## jest
+
+## yarn
+
+## babel
+
+## postcss
+
+## LICENSE
+
+## package
+
+## editorconfig
+
+## chrome 扩展
+
+## vs 扩展
+
+## webpack
+
+## vscode-chrome-debug
