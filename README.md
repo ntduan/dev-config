@@ -21,3 +21,32 @@ jsxBracketSameLine: true
 jsx 的末尾中括号不另起一行，和 react 官方的配置相同。
 
 语句末尾默认是加上分号的，在我观察了几个大型前端项目后，我决定不去改变它。我的习惯依然是不加分号，不过我会依赖自动格式化给语句添加分号。
+
+## gitignore
+
+不需要添加到 git 版本库的文件，基于 create-react-app，做了一些自己的定制
+
+```
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+#config
+.vscode/settings.json
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+```
