@@ -81,6 +81,50 @@ server {
 }
 ```
 
+## [nvm](https://github.com/creationix/nvm)
+
+curl 下载并执行安装脚本
+
+```bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+```
+
+在 ~/.bashrc（会自动添加）或者 ~/.zshrc（如果用的是 zsh）中添加下列配置
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+```
+
+使用 `source ~/.bashrc` 或 `source ~/.zshrc` 可以不重启终端，使 nvm 命令生效。
+
+下载最新版 node
+
+```bash
+nvm install node
+```
+
+使用指定版本
+
+```bash
+nvm use 8.0
+```
+
+安装时，迁移旧版本 node 的 node_module
+
+```bash
+nvm install 6 --reinstall-packages-from=5
+```
+
+在不同项目之间切换版本：添加 [.nvmrc](./nvmrc) 文件。
+
+```bash
+#.nvmrc
+8.11.4
+```
+
+此后在该目录下使用如：`nvm use`，`nvm install` 等命令，会自动指定 nvmrc 中的所指定的版本。
+
 ## tslint
 
 ## ts config
