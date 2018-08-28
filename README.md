@@ -24,6 +24,38 @@ jsx 的末尾中括号不另起一行，和 react 官方的配置相同。
 
 语句末尾默认是加上分号的，在我观察了几个大型前端项目后，我决定不去改变它。我的习惯依然是不加分号，不过我会依赖自动格式化给语句添加分号。
 
+### [lint-staged](https://github.com/okonet/lint-staged)
+
+使用 lint-staged 在 git 暂存文件的时候，运行 prettier。
+
+```js
+// package.json
+{
+  ...
+  "lint-staged": {
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
+  },
+  ...
+}
+```
+
+### [husky](https://github.com/typicode/husky)
+
+使用 husky 配置 git hook。如 `pre-commit pre-push`。我们配置 pre-commit 运行 prettier
+
+```js
+// package.json
+{
+  ...
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  ...
+}
+```
+
 ## [gitignore](./.gitignore)
 
 不需要添加到 git 版本库的文件，基于 create-react-app，做了一些自己的定制
