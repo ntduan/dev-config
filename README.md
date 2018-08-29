@@ -157,6 +157,79 @@ nvm install 6 --reinstall-packages-from=5
 
 此后在该目录下使用如：`nvm use`，`nvm install` 等命令，会自动指定 nvmrc 中的所指定的版本。
 
+## gzip
+
+使用 nginx 开启 gzip。
+
+官方文档： http://nginx.org/en/docs/http/ngx_http_gzip_module.html
+
+配置：
+
+```bash
+# 是否开启gzip
+gzip on;
+
+# User-Agent 如何和该正则表达式匹配，则不禁止 gzipping
+gzip_disable "msie6";
+
+# 启用gzip压缩的最小文件，小于设置值的文件将不会压缩
+gzip_min_length 1024;
+
+# 针对代理请求，可以为 off | expired | no-cache | no-store | private | no_last_modified | no_etag | auth | any ...;
+# any 表示所有代理请求都开启 gzip，no-cache 代表只有 包含 no-cache 请求头开启。
+gzip_proxied any;
+
+# gzip 压缩级别，1-10，数字越大压缩的越好，也越占用CPU时间
+gzip_comp_level 5;
+
+# 进行压缩的文件类型。其中的值可以在 mime.types 文件中找到。图片不要通过 gzip 压缩，没有意义。
+gzip_types
+    text/css
+    text/javascript
+    text/xml
+    text/plain
+    text/x-component
+    application/javascript
+    application/x-javascript
+    application/json
+    application/xml
+    application/rss+xml
+    application/x-font-ttf
+    application/vnd.ms-fontobject
+    image/svg+xml
+    svg
+    svgz;
+
+# 是否在http header中添加Vary: Accept-Encoding
+gzip_vary on;
+```
+
+## [nodemon](https://github.com/remy/nodemon)
+
+命令行基本用法
+
+```shell
+nodemon [options] [script.js] [args]
+```
+
+部分参数：
+
+- -e, --ext 文件后缀名
+- -x, --exec 需要执行的命令，如 `nodemon --exec node index`
+- -w, --watch 需要监控的目录或者文件
+- -i, --ignore 需要忽略的目录或文件
+
+例子：
+
+```bash
+$ nodemon server.js
+$ nodemon -w ../foo server.js apparg1 apparg2
+$ PORT=8000 nodemon --debug-brk server.js
+$ nodemon --exec python app.py
+$ nodemon --exec "make build" -e "styl hbs"
+$ nodemon app.js -- -V
+```
+
 ## tslint
 
 ## ts config
