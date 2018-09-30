@@ -1,5 +1,4 @@
 # dev-config
-记录开发所用到的各种配置文件
 
 ## nginx 和 HTTP
 
@@ -10,9 +9,9 @@ https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-
 CentOS:
 
 ```bash
-$ sudo yum install epel-release
-$ sudo yum update
-$ sudo yum install nginx
+sudo yum install epel-release
+sudo yum update
+sudo yum install nginx
 ```
 
 macOS:
@@ -21,7 +20,7 @@ macOS:
 sudo brew install nginx
 ```
 
-nginx 命令： `sudo service nginx start|stop|restart|reload`
+nginx 命令： `sudo service nginx start|stop|restart|reload` 或者 `sudo nginx -s reload|reopen|stop|quit`
 mac 下命令 `sudo brew services start|stop|restart|reload nginx`
 
 ### 从源码编译 nginx
@@ -58,7 +57,7 @@ openssl
 wget http://www.openssl.org/source/openssl-1.0.2p.tar.gz
 tar -zxf openssl-1.0.2p.tar.gz
 cd openssl-1.0.2p
-./Configure darwin64-x86_64-cc --prefix=/usr
+./Configure darwin64-x86_64-cc --prefix=/usr/local
 make
 sudo make install
 ```
@@ -113,6 +112,21 @@ http {
 }
 ```
 
+### 开启一个简单的静态网站的服务
+
+```bash
+server {
+  listen  80;
+  server_name  localhost;
+  root  /Users/xxxx/static-site;
+  location / {
+    try_files $uri /index.html;
+  }
+}
+```
+
+对于 react vue angular 若设置了 html5 histroy router 可以通过 `try_files $uri /index.html;` 以支持
+
 ### 配置 HTTPS
 
 证书我们选用 Let's Encrypt。按照官方教程，推荐使用 [certbot](https://certbot.eff.org/) ACME client。certbot 可以自动进行证书的颁发和安装。
@@ -139,6 +153,37 @@ server {
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 ```
+
+### 使本地开发 localhost 开启 https
+
+https://github.com/FiloSottile/mkcert 创建一张证书。
+
+安装 mkcert
+
+```bash
+brew install mkcert
+```
+
+创建证书：
+
+```bash
+mkcert example.com '*.example.org' myapp.dev localhost
+```
+
+配置 nginx:
+
+```bash
+server {
+  listen  443 ssl;
+  server_name  example.com;
+  root  /Users/xxxx/workspace/www;
+  ssl_certificate  /Users/xxxx/www/ssl/_wildcard.dev.test.pem;
+  ssl_certificate_key  /Users/xxxx/www/ssl/_wildcard.dev.test-key.pem;
+}
+```
+
+这样则为 localhost 开启了 https。
+我们也可以通过配置 hosts 为本地自定义域名开启  https
 
 ### gzip 压缩
 
@@ -224,10 +269,30 @@ make
 sudo make install
 ```
 
-开启 brotli，配置文档 https://github.com/google/ngx_brotli
+开启 brotli（只支持 https），配置文档 https://github.com/google/ngx_brotli
 
+配置 nginx:
 
-
+```bash
+brotli  on;
+brotli_comp_level  6;
+brotli_types
+    text/css
+    text/javascript
+    text/xml
+    text/plain
+    text/x-component
+    application/javascript
+    application/x-javascript
+    application/json
+    application/xml
+    application/rss+xml
+    application/x-font-ttf
+    application/vnd.ms-fontobject
+    image/svg+xml
+    svg
+    svgz;
+```
 
 
 ## [prettier](./.prettierrc.yml)
@@ -444,3 +509,9 @@ $ nodemon app.js -- -V
 ## webpack
 
 ## vscode-chrome-debug
+
+
+## 性能监控平台
+## google 分析
+## performance
+## debug
